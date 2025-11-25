@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Borderless Lives – Refugee Crisis in India</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {margin:0; font-family:"Georgia", serif; background:#f5f7fa; color:#212529; line-height:1.6;}
+    header {background:#fff; padding:16px 40px; border-bottom:1px solid #ccc; position:sticky; top:0; z-index:1000;}
+    nav a {margin:0 16px; color:#212529; text-decoration:none; font-weight:600;}
+    nav a:hover {color:#0056b3;}
+    section {padding:60px 20px; max-width:800px; margin:auto;}
+    h1,h2,h3 {color:#2c3e50; font-weight:600;}
+    .fade {opacity:0; transform:translateY(20px); transition:opacity 0.8s ease, transform 0.8s ease;}
+    .fade.active {opacity:1; transform:translateY(0);}
+    canvas {max-width:100%; margin-top:24px;}
+    footer {background:#e9ecef; text-align:center; padding:30px; font-size:14px; color:#6c757d; margin-top:40px;}
+    ul {margin-left:20px;}
+    @media(max-width:600px){nav a{display:block; margin:8px 0;}}
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#crisis">The Crisis</a>
+    <a href="#data">Data</a>
+    <a href="#communities">Communities</a>
+    <a href="#map">Map</a>
+    <a href="#bibliography">Bibliography</a>
+  </nav>
+</header>
+
+<section id="home" class="fade">
+  <h1>Borderless Lives: Refugee Crisis in India</h1>
+  <p>This site presents a data-driven academic overview of the refugee situation in India, based on UNHCR, NHRC, and other official sources.</p>
+</section>
+
+<section id="crisis" class="fade">
+  <h2>The Refugee Crisis</h2>
+  <p>India is home to multiple refugee groups from neighboring countries, but it does not have a national refugee law. Refugees are accommodated under the Foreigners Act on a case-by-case basis.</p>
+  <p>By the end of 2024, approximately <strong>236,768 refugees and asylum-seekers</strong> were registered in India.</p>
+  <p>Main causes of displacement:</p>
+  <ul>
+    <li>Armed conflicts in Afghanistan, Myanmar, and Sri Lanka</li>
+    <li>Political persecution and ethnic discrimination</li>
+    <li>Religious persecution and statelessness</li>
+  </ul>
+</section>
+
+<section id="data" class="fade">
+  <h2>Statistics & Trends</h2>
+  <h3>Refugees by Origin (Pie Chart)</h3>
+  <canvas id="originChart" width="300" height="300"></canvas>
+  <h3>Refugee Population Trend (Bar Chart)</h3>
+  <canvas id="trendChart" width="400" height="300"></canvas>
+  <p>Data Source: UNHCR India, NHRC Refugee Survey 2024</p>
+</section>
+
+<section id="communities" class="fade">
+  <h2>Refugee Communities</h2>
+  <h3>Tibetan Refugees</h3>
+  <p>Approx. 72,291 registered. Primarily settled in Dharamshala, Karnataka, and Uttarakhand. Community emphasizes education and cultural preservation.</p>
+
+  <h3>Sri Lankan Tamils</h3>
+  <p>Approx. 92,015 registered. Concentrated in Tamil Nadu. Many arrived during the civil war (1983-2009).</p>
+
+  <h3>Rohingya / Myanmar Refugees</h3>
+  <p>Approx. 30,142 registered. Mostly living in Jammu, Hyderabad, and Delhi. Vulnerable to statelessness and lack of access to legal work.</p>
+
+  <h3>Afghan Refugees</h3>
+  <p>Approx. 14,578 registered. Many arrived after Soviet occupation in the 1980s and during Taliban resurgence.</p>
+
+  <h3>Other Groups</h3>
+  <p>Chakma, Hajong, and other smaller groups reside in northeast India and urban centers.</p>
+</section>
+
+<section id="map" class="fade">
+  <h2>Geographical Distribution</h2>
+  <ul>
+    <li><strong>Delhi:</strong> Afghan refugees, Rohingya</li>
+    <li><strong>Jammu:</strong> Rohingya</li>
+    <li><strong>Tamil Nadu:</strong> Sri Lankan Tamils</li>
+    <li><strong>Dharamshala:</strong> Tibetan Government-in-Exile</li>
+    <li><strong>Northeast India:</strong> Chakma, Hajong</li>
+  </ul>
+</section>
+
+<section id="bibliography" class="fade">
+  <h2>Bibliography</h2>
+  <ul>
+    <li>UNHCR India Country Profile. https://www.unhcr.org/india.html</li>
+    <li>NHRC Refugees in India Report, 2022. https://nhrc.nic.in/sites/default/files/Refugees_in_India.pdf</li>
+    <li>Wikipedia: Refugees in India. https://en.wikipedia.org/wiki/Refugees_in_India</li>
+    <li>Macrotrends: India Refugee Statistics. https://www.macrotrends.net/global-metrics/countries/IND/india/refugee-statistics</li>
+  </ul>
+</section>
+
+<footer>© 2025 Borderless Lives – Academic Project</footer>
+
+<script>
+// Fade animation
+const faders = document.querySelectorAll('.fade');
+function fadeIn() {
+  const trigger = window.innerHeight * 0.85;
+  faders.forEach(el => {
+    if(el.getBoundingClientRect().top < trigger) el.classList.add('active');
+  });
+}
+window.addEventListener('scroll', fadeIn);
+fadeIn();
+
+// Pie Chart
+new Chart(document.getElementById('originChart'), {
+  type: 'pie',
+  data: {
+    labels: ['Sri Lanka', 'Tibet', 'Myanmar', 'Afghanistan', 'Others'],
+    datasets: [{
+      data: [92015, 72291, 30142, 14578, 4695],
+      backgroundColor: ['#4e79a7','#f28e2c','#e15759','#76b7b2','#59a14f']
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {legend:{position:'bottom'}}
+  }
+});
+
+// Bar Chart
+new Chart(document.getElementById('trendChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2021','2022','2023','2024'],
+    datasets: [{
+      label:'Registered Refugees',
+      data:[212413,242835,252867,236768],
+      backgroundColor:'#4e79a7'
+    }]
+  },
+  options: {responsive:true, scales:{y:{beginAtZero:true}}}
+});
+</script>
+
+</body>
+</html>
